@@ -73,13 +73,14 @@ exit
 - make test - Run tests
 
 
-1. End a working session:
+3. End a working session:
 
 
  - Exit container shell with exit
  - Stop container with ./dev.sh down
 
 ### Project structure
+```
 libftpp/
 ├── include/             # Header files
 │   ├── data_structures/
@@ -90,3 +91,4 @@ libftpp/
 ├── src/                # Source files
 ├── tests/             # Test files
 └── libftpp.hpp        # Main header
+```
