@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "perlin_noise_2D.hpp"
+#include "mathematics/perlin_noise_2D.hpp"
 
 int main() {
     PerlinNoise2D perlin;

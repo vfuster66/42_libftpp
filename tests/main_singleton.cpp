@@ -1,5 +1,5 @@
 #include <iostream>
-#include "singleton.hpp"
+#include "../include/design_patterns/singleton.hpp"
 
 class MyClass {
 public:

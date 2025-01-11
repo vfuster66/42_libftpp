@@ -58,7 +58,11 @@ exit
 1. Start a working session:
 
 
-- Run chmod +x dev.sh to make script executable
+- Run 
+```
+chmod +x dev.sh
+````
+to make script executable
 - Start container with ./dev.sh up
 - Access container shell with ./dev.sh shell
 

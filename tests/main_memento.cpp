@@ -1,4 +1,4 @@
-#include "memento.hpp"
+#include "../include/design_patterns/memento.hpp"
 #include <iostream>
 
 class TestClass : public Memento {

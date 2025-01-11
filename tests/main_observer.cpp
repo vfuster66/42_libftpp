@@ -1,4 +1,4 @@
-#include "observer.hpp"
+#include "../include/design_patterns/observer.hpp"
 #include <iostream>
 
 enum class EventType {

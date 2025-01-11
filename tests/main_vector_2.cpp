@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ivector2.hpp"
+#include "mathematics/ivector2.hpp"
 
 int main() {
     IVector2<int> vec1(3, 4);

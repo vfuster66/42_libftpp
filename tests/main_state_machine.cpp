@@ -1,5 +1,5 @@
 #include <iostream>
-#include "state_machine.hpp"
+#include "../include/design_patterns/state_machine.hpp"
 
 enum class State {
     Idle,

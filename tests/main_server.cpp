@@ -1,5 +1,5 @@
-#include "server.hpp"
-#include "thread_safe_iostream.hpp"
+#include "network/server.hpp"
+#include "threading/thread_safe_iostream.hpp"
 #include <string>
 
 int main() {
@@ -38,7 +38,7 @@ int main() {
 
 	while (!quit)
 	{
-		client.update();
+        server.update();
 
 		threadSafeCout << "Server updated." << std::endl;
 		threadSafeCout << "Available operations :" << std::endl;
