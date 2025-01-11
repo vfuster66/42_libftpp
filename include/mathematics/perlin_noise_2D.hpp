@@ -10,14 +10,22 @@ class PerlinNoise2D {
 private:
     std::vector<int> permutation;
 
-    float fade(float t) const; // Fonction de lissage (fade)
-    float lerp(float t, float a, float b) const; // Interpolation linéaire (lerp)
-    float grad(int hash, float x, float y) const; // Calcul du gradient
+    // Fonction de lissage (fade)
+    float fade(float t) const;
+
+    // Interpolation linéaire (lerp)
+    float lerp(float t, float a, float b) const;
+
+    // Calcul du gradient
+    float grad(int hash, float x, float y) const; 
 
 public:
-    PerlinNoise2D(); // Constructeur
 
-    float sample(float x, float y) const; // Échantillonnage du bruit de Perlin
+    // Constructeur par défaut
+    PerlinNoise2D();
+
+    // Échantillonnage du bruit de Perlin
+    float sample(float x, float y) const;
 };
 
 #endif // PERLIN_NOISE_2D_HPP

@@ -15,15 +15,31 @@
 class Client
 {
 private:
-    std::string serverAddress;                // Adresse du serveur
-    size_t serverPort;                        // Port du serveur
-    std::unordered_map<int, std::function<void(const Message &)>> actions; // Actions associées aux types de message
-    std::queue<Message> receivedMessages;    // File des messages reçus
-    std::mutex messageMutex;                 // Mutex pour protéger la file des messages
-    std::atomic<bool> connected = false;     // Indique si le client est connecté
-    std::thread receiveThread;               // Thread pour recevoir les messages
 
-    void receiveMessages();                  // Méthode pour recevoir les messages en arrière-plan
+    // Adresse du serveur
+    std::string serverAddress;
+
+    // Port du serveur
+    size_t serverPort;
+
+    // Actions associées aux types de message
+    std::unordered_map<int, 
+    std::function<void(const Message &)>> actions;
+
+    // File des messages reçus
+    std::queue<Message> receivedMessages;
+
+    // Mutex pour protéger la file des messages
+    std::mutex messageMutex;
+
+    // Indique si le client est connecté               
+    std::atomic<bool> connected = false;
+
+    // Thread pour recevoir les messages
+    std::thread receiveThread;
+
+    // Méthode pour recevoir les messages en arrière-plan
+    void receiveMessages();
 
 public:
     Client();

@@ -7,6 +7,7 @@
 template<typename TType>
 class Singleton {
 public:
+
     // Empêcher la copie et l'assignation
     Singleton(const Singleton&) = delete;
     Singleton& operator=(const Singleton&) = delete;

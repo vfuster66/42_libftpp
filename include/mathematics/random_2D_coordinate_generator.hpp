@@ -8,6 +8,7 @@ private:
     long long seedValue;
 
 public:
+
     // Constructeur par défaut avec un seed constant
     Random2DCoordinateGenerator();
 

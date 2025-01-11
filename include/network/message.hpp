@@ -7,8 +7,12 @@
 class Message
 {
 private:
-    int messageType;             // Type du message
-    std::stringstream buffer;    // Contenu du message stocké sous forme de flux
+
+    // Type du message
+    int messageType;
+
+    // Contenu du message stocké sous forme de flux
+    std::stringstream buffer;
 
 public:
     // Constructeur prenant un type de message en paramètre
@@ -71,7 +75,9 @@ inline int Message::type() const
 template <typename T>
 Message &Message::operator<<(const T &data)
 {
-    buffer << data; // Ajoute les données dans le flux interne
+
+    // Ajoute les données dans le flux interne
+    buffer << data;
     return *this;
 }
 
@@ -79,7 +85,9 @@ Message &Message::operator<<(const T &data)
 template <typename T>
 Message &Message::operator>>(T &data) const
 {
-    const_cast<std::stringstream &>(buffer) >> data; // Lit les données depuis le flux interne
+
+    // Lit les données depuis le flux interne
+    const_cast<std::stringstream &>(buffer) >> data;
     return const_cast<Message &>(*this);
 }
 

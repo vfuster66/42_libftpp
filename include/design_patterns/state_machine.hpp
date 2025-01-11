@@ -16,6 +16,7 @@ public:
     // Ajouter un état possible
     void addState(const TState& state) {
         m_states.insert(state);
+        
         // Ajouter une action vide par défaut
         m_actions[state] = [](){};
     }

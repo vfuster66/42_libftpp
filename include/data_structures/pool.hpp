@@ -8,8 +8,11 @@
 template<typename TType>
 class Pool {
 public:
+
+    // Classe imbriquée pour encapsuler les objets acquis
     class Object {
     public:
+
         // Constructeur prenant un pointeur vers l'objet et une référence vers le pool
         Object(TType* ptr, Pool<TType>& pool) : m_ptr(ptr), m_pool(pool) {}
         
@@ -36,16 +39,24 @@ public:
         Object& operator=(Object&& other) noexcept {
             if (this != &other) {
                 if (m_ptr) {
+
+                    // Libère l'objet actuel
                     m_pool.release(m_ptr);
                 }
                 m_ptr = other.m_ptr;
+
+                // Déplace la propriété
                 other.m_ptr = nullptr;
             }
             return *this;
         }
 
     private:
+
+        // Pointeur vers l'objet
         TType* m_ptr;
+
+        // Référence au pool propriétaire
         Pool<TType>& m_pool;
     };
 
@@ -71,13 +82,16 @@ public:
     Object acquire(TArgs&&... args) {
         TType* ptr;
         if (m_available.empty()) {
+
             // Si aucun objet n'est disponible, en créer un nouveau
             ptr = new TType(std::forward<TArgs>(args)...);
             m_allocated.push_back(ptr);
         } else {
+
             // Utiliser un objet existant
             ptr = m_available.front();
             m_available.pop();
+
             // Reconstruire l'objet avec placement new
             ptr->~TType();
             new (ptr) TType(std::forward<TArgs>(args)...);
@@ -86,14 +100,19 @@ public:
     }
 
 private:
+
     // Libérer un objet et le remettre dans le pool
     void release(TType* ptr) {
         m_available.push(ptr);
     }
 
-    std::vector<TType*> m_allocated;  // Tous les objets alloués
-    std::queue<TType*> m_available;   // Objets disponibles
+    // Tous les objets alloués
+    std::vector<TType*> m_allocated;
 
+    // Objets disponibles pour réutilisation
+    std::queue<TType*> m_available;
+
+    // Autorise Object à appeler `release`
     friend class Object;
 };
 

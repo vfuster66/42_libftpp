@@ -9,39 +9,57 @@
 
 class ThreadSafeIOStream {
 public:
+    // Constructeur par défaut
     ThreadSafeIOStream();
+
+    // Destructeur par défaut
     ~ThreadSafeIOStream() = default;
 
-    // Définit un préfixe spécifique au thread
+    // Définit un préfixe spécifique au thread pour chaque message
     void setPrefix(const std::string& prefix);
 
-    // Surcharge de l'opérateur <<
+    // Surcharge de l'opérateur << pour permettre l'écriture dans le flux thread-safe
     template<typename T>
     ThreadSafeIOStream& operator<<(const T& value) {
+
+        // Verrouille le mutex pour protéger l'accès concurrent
         std::lock_guard<std::mutex> lock(mtx_);
-        buffer_ << value; // Stocke dans un buffer temporaire
+
+        // Stocke la valeur dans un buffer temporaire
+        buffer_ << value;
         return *this;
     }
 
-    // Gestion spécifique pour les manipulations comme std::endl
+    // Surcharge de l'opérateur << pour gérer les manipulations comme std::endl
     ThreadSafeIOStream& operator<<(std::ostream& (*manip)(std::ostream&)) {
+        
+        // Verrouille le mutex pour protéger l'accès concurrent
         std::lock_guard<std::mutex> lock(mtx_);
         if (manip == static_cast<std::ostream& (*)(std::ostream&)>(std::endl)) {
-            // Écrit le préfixe suivi du contenu du buffer
+            
+            // Écrit le préfixe suivi du contenu du buffer dans le flux standard
             std::cout << prefix_ << buffer_.str() << std::endl;
-            buffer_.str(""); // Réinitialise le buffer
+            
+            // Réinitialise le buffer après l'écriture
+            buffer_.str("");
             buffer_.clear();
         }
         return *this;
     }
 
 private:
-    std::mutex mtx_;                // Verrou pour protéger les accès concurrents
-    std::ostringstream buffer_;     // Buffer temporaire pour la construction des messages
-    std::string prefix_;            // Préfixe de chaque ligne
+    
+    // Mutex pour protéger l'accès concurrent au flux
+    std::mutex mtx_;
+
+    // Buffer temporaire pour la construction des messages
+    std::ostringstream buffer_;
+
+    // Préfixe affiché avant chaque ligne de message
+    std::string prefix_;
 };
 
-// Déclaration d'un flux thread-local
+// Déclaration d'un flux thread-local pour une sortie thread-safe
 extern thread_local ThreadSafeIOStream threadSafeCout;
 
 #endif // THREAD_SAFE_IOSTREAM_HPP
